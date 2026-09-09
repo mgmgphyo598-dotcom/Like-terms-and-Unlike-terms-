@@ -1,0 +1,2387 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Like Terms and Unlike Terms</title>
+
+<style>
+
+/* =========================
+   BASIC SETTINGS
+========================= */
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:"Noto Sans Myanmar","Myanmar Text",Arial,sans-serif;
+    color:#172033;
+
+    background:
+    linear-gradient(
+        -45deg,
+        #dff7ff,
+        #f4e7ff,
+        #fff4d8,
+        #e2ffe9
+    );
+
+    background-size:400% 400%;
+    animation:backgroundMove 15s ease infinite;
+}
+
+@keyframes backgroundMove{
+
+    0%{
+        background-position:0% 50%;
+    }
+
+    50%{
+        background-position:100% 50%;
+    }
+
+    100%{
+        background-position:0% 50%;
+    }
+
+}
+
+
+/* =========================
+   FLOATING CIRCLES
+========================= */
+
+body::before,
+body::after{
+
+    content:"";
+    position:fixed;
+
+    width:180px;
+    height:180px;
+
+    border-radius:50%;
+
+    background:rgba(255,255,255,0.18);
+
+    z-index:-1;
+
+    animation:circleMove 8s ease-in-out infinite;
+}
+
+body::before{
+
+    top:8%;
+    left:2%;
+}
+
+body::after{
+
+    bottom:8%;
+    right:2%;
+
+    width:230px;
+    height:230px;
+
+    animation-delay:2s;
+}
+
+@keyframes circleMove{
+
+    0%,100%{
+        transform:translateY(0) scale(1);
+    }
+
+    50%{
+        transform:translateY(-30px) scale(1.08);
+    }
+
+}
+
+
+/* =========================
+   MAIN CONTAINER
+========================= */
+
+.container{
+
+    max-width:1100px;
+
+    margin:auto;
+
+    padding:20px;
+}
+
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+
+    text-align:center;
+
+    padding:35px 20px;
+
+    border-radius:30px;
+
+    background:rgba(255,255,255,0.75);
+
+    backdrop-filter:blur(15px);
+
+    box-shadow:
+        0 15px 40px rgba(0,0,0,0.12);
+
+    animation:heroFloat 4s ease-in-out infinite;
+}
+
+@keyframes heroFloat{
+
+    0%,100%{
+        transform:translateY(0);
+    }
+
+    50%{
+        transform:translateY(-7px);
+    }
+
+}
+
+.hero h1{
+
+    margin:10px 0;
+
+    font-size:clamp(28px,5vw,48px);
+
+    color:#5b3cc4;
+
+    animation:titleGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes titleGlow{
+
+    from{
+        text-shadow:0 0 5px rgba(108,77,230,0.2);
+    }
+
+    to{
+        text-shadow:0 0 20px rgba(108,77,230,0.5);
+    }
+
+}
+
+.hero p{
+
+    font-size:18px;
+
+    margin:8px;
+}
+
+.badge{
+
+    display:inline-block;
+
+    padding:7px 15px;
+
+    border-radius:30px;
+
+    background:#eee7ff;
+
+    color:#5734c5;
+
+    font-weight:bold;
+}
+
+
+/* =========================
+   NAVIGATION
+========================= */
+
+.tabs{
+
+    display:flex;
+
+    justify-content:center;
+
+    flex-wrap:wrap;
+
+    gap:12px;
+
+    margin:25px 0;
+}
+
+.tab{
+
+    border:none;
+
+    padding:14px 20px;
+
+    border-radius:18px;
+
+    background:white;
+
+    color:#333;
+
+    font-size:16px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    box-shadow:0 7px 18px rgba(0,0,0,0.12);
+
+    transition:0.3s;
+}
+
+.tab:hover{
+
+    transform:translateY(-5px) scale(1.03);
+
+}
+
+.tab.active{
+
+    background:#6c4de6;
+
+    color:white;
+
+}
+
+
+/* =========================
+   SECTIONS
+========================= */
+
+.section{
+
+    display:none;
+
+    padding:25px;
+
+    border-radius:25px;
+
+    background:rgba(255,255,255,0.82);
+
+    backdrop-filter:blur(10px);
+
+    box-shadow:0 12px 35px rgba(0,0,0,0.12);
+
+    animation:sectionShow 0.6s ease;
+}
+
+.section.active{
+
+    display:block;
+}
+
+@keyframes sectionShow{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(25px);
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+    }
+
+}
+
+.section h2{
+
+    color:#5b3cc4;
+
+    font-size:28px;
+
+    margin-top:0;
+}
+
+
+/* =========================
+   PROCEDURE CARDS
+========================= */
+
+.grid{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(230px,1fr));
+
+    gap:18px;
+}
+
+.card{
+
+    background:white;
+
+    padding:20px;
+
+    border-radius:20px;
+
+    box-shadow:
+        0 8px 20px rgba(0,0,0,0.08);
+
+    border-left:6px solid #6c4de6;
+
+    transition:0.3s;
+
+    animation:cardAppear 0.8s ease;
+}
+
+.card:hover{
+
+    transform:
+        translateY(-7px)
+        rotate(0.5deg);
+
+    box-shadow:
+        0 15px 30px rgba(108,77,230,0.2);
+}
+
+@keyframes cardAppear{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(20px);
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+    }
+
+}
+
+.step{
+
+    position:relative;
+
+    padding-left:65px;
+
+    min-height:100px;
+}
+
+.number{
+
+    position:absolute;
+
+    left:12px;
+
+    top:15px;
+
+    width:42px;
+
+    height:42px;
+
+    display:grid;
+
+    place-items:center;
+
+    border-radius:50%;
+
+    background:#6c4de6;
+
+    color:white;
+
+    font-weight:bold;
+
+    font-size:18px;
+
+    box-shadow:
+        0 5px 15px rgba(108,77,230,0.4);
+
+    animation:numberPulse 2s infinite;
+}
+
+@keyframes numberPulse{
+
+    0%,100%{
+        transform:scale(1);
+    }
+
+    50%{
+        transform:scale(1.1);
+    }
+
+}
+
+.example{
+
+    background:#f6f3ff;
+
+    padding:12px;
+
+    border-radius:12px;
+
+    margin:8px 0;
+
+    text-align:center;
+
+    font-size:20px;
+}
+
+.like{
+
+    color:#16834c;
+
+    font-weight:bold;
+}
+
+.unlike{
+
+    color:#d13c55;
+
+    font-weight:bold;
+}
+
+.tip{
+
+    margin-top:20px;
+
+    padding:18px;
+
+    border-radius:15px;
+
+    background:#fff7dc;
+
+    border-left:6px solid #efb52d;
+}
+
+
+/* =========================
+   BINGO
+========================= */
+
+.bingo-layout{
+
+    display:grid;
+
+    grid-template-columns:
+    1fr 300px;
+
+    gap:20px;
+}
+
+@media(max-width:800px){
+
+    .bingo-layout{
+
+        grid-template-columns:1fr;
+    }
+
+}
+
+.question{
+
+    min-height:90px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    text-align:center;
+
+    padding:15px;
+
+    margin-bottom:15px;
+
+    border-radius:18px;
+
+    background:
+    linear-gradient(
+        135deg,
+        #ffffff,
+        #f1edff
+    );
+
+    font-size:21px;
+
+    font-weight:bold;
+
+    box-shadow:
+        0 7px 20px rgba(0,0,0,0.08);
+}
+
+
+/* =========================
+   BUTTONS
+========================= */
+
+.action{
+
+    border:none;
+
+    padding:12px 18px;
+
+    border-radius:14px;
+
+    background:#6c4de6;
+
+    color:white;
+
+    font-size:15px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:0.25s;
+
+    box-shadow:
+        0 6px 15px rgba(108,77,230,0.3);
+}
+
+.action:hover{
+
+    transform:
+        translateY(-3px)
+        scale(1.02);
+}
+
+.action.dark{
+
+    background:#26364f;
+}
+
+.controls{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:10px;
+
+    margin:15px 0;
+}
+
+
+/* =========================
+   BINGO BOARD
+========================= */
+
+.bingo-board{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(5,1fr);
+
+    gap:7px;
+
+    max-width:650px;
+
+    margin:auto;
+}
+
+.bingo-cell{
+
+    aspect-ratio:1/1;
+
+    border:2px solid #ddd5ff;
+
+    background:white;
+
+    border-radius:13px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    text-align:center;
+
+    font-size:clamp(12px,2vw,17px);
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:0.25s;
+
+}
+
+.bingo-cell:hover{
+
+    transform:scale(1.05);
+
+    background:#f2edff;
+}
+
+.bingo-cell.marked{
+
+    background:#6c4de6;
+
+    color:white;
+
+    border-color:#6c4de6;
+
+    animation:cellPop 0.3s ease;
+}
+
+.bingo-cell.free{
+
+    background:#ffd45e;
+
+    color:#634700;
+}
+
+@keyframes cellPop{
+
+    0%{
+        transform:scale(0.7);
+    }
+
+    70%{
+        transform:scale(1.15);
+    }
+
+    100%{
+        transform:scale(1);
+    }
+
+}
+
+
+/* =========================
+   GAME INFO
+========================= */
+
+.info{
+
+    background:rgba(255,255,255,0.9);
+
+    padding:20px;
+
+    border-radius:20px;
+
+    box-shadow:
+        0 7px 20px rgba(0,0,0,0.08);
+}
+
+.info h3{
+
+    color:#5b3cc4;
+}
+
+.progress{
+
+    height:12px;
+
+    background:#e9e5f4;
+
+    border-radius:20px;
+
+    overflow:hidden;
+}
+
+.progress-bar{
+
+    height:100%;
+
+    width:0%;
+
+    background:#6c4de6;
+
+    transition:0.5s;
+}
+
+
+/* =========================
+   ASSESSMENT
+========================= */
+
+.quiz{
+
+    display:grid;
+
+    gap:16px;
+}
+
+.question-box{
+
+    padding:20px;
+
+    border-radius:18px;
+
+    background:white;
+
+    box-shadow:
+        0 6px 18px rgba(0,0,0,0.08);
+
+    transition:0.25s;
+}
+
+.question-box:hover{
+
+    transform:translateY(-3px);
+}
+
+.question-box label{
+
+    display:block;
+
+    padding:10px;
+
+    margin-top:6px;
+
+    border-radius:10px;
+
+    cursor:pointer;
+}
+
+.question-box label:hover{
+
+    background:#f1edff;
+}
+
+.result{
+
+    display:none;
+
+    margin-top:20px;
+
+    padding:20px;
+
+    border-radius:18px;
+
+    text-align:center;
+
+    font-size:21px;
+
+    font-weight:bold;
+
+    background:#f2edff;
+
+    animation:resultShow 0.5s ease;
+}
+
+@keyframes resultShow{
+
+    from{
+
+        opacity:0;
+
+        transform:scale(0.8);
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:scale(1);
+    }
+
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+
+    text-align:center;
+
+    padding:25px;
+
+    opacity:0.7;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:600px){
+
+    .container{
+
+        padding:12px;
+    }
+
+    .section{
+
+        padding:18px;
+    }
+
+    .hero{
+
+        padding:25px 12px;
+    }
+
+    .tab{
+
+        width:100%;
+    }
+
+    .step{
+
+        padding-left:60px;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+<!-- ===================================
+     HEADER
+==================================== -->
+
+<header class="hero">
+
+    <span class="badge">
+        📚 Mathematics • Grade 7
+    </span>
+
+    <h1>
+        Like Terms & Unlike Terms
+    </h1>
+
+    <p>
+        🎯 Game-Based Learning Lesson
+    </p>
+
+    <p>
+        Learn • Play • Discuss • Apply
+    </p>
+
+</header>
+
+
+
+<!-- ===================================
+     MENU
+==================================== -->
+
+<div class="tabs">
+
+    <button
+        class="tab active"
+        onclick="openSection('procedures',this)"
+    >
+        📚 Procedures
+    </button>
+
+
+    <button
+        class="tab"
+        onclick="openSection('bingo',this)"
+    >
+        🎲 Bingo Game
+    </button>
+
+
+    <button
+        class="tab"
+        onclick="openSection('assessment',this)"
+    >
+        📝 Assessment
+    </button>
+
+</div>
+
+
+
+<!-- ===================================
+     PROCEDURES
+==================================== -->
+
+<section
+    id="procedures"
+    class="section active"
+>
+
+
+<h2>
+    📚 Teaching Procedures
+</h2>
+
+
+<div class="grid">
+
+
+<!-- STEP 1 -->
+
+<div class="card step">
+
+    <div class="number">
+        1
+    </div>
+
+    <h3>
+        Introduction
+    </h3>
+
+    <p>
+        ဆရာ/ဆရာမက Algebraic terms များကို
+        ပြန်လည်မေးမြန်းပြီး ယနေ့သင်ခန်းစာ၏
+        ရည်ရွယ်ချက်ကို ရှင်းပြပါ။
+    </p>
+
+</div>
+
+
+
+<!-- STEP 2 -->
+
+<div class="card step">
+
+    <div class="number">
+        2
+    </div>
+
+    <h3>
+        Concept Explanation
+    </h3>
+
+    <p>
+        Variable များနှင့် exponent များ
+        တူညီသော terms များကို
+        <span class="like">
+            Like Terms
+        </span>
+        ဟုခေါ်သည်။
+    </p>
+
+    <p>
+        မတူညီသော terms များကို
+        <span class="unlike">
+            Unlike Terms
+        </span>
+        ဟုခေါ်သည်။
+    </p>
+
+</div>
+
+
+
+<!-- STEP 3 -->
+
+<div class="card step">
+
+    <div class="number">
+        3
+    </div>
+
+    <h3>
+        Examples
+    </h3>
+
+    <div class="example">
+
+        6xy + 5x
+
+        <br>
+
+        <span class="unlike">
+            ❌ Unlike Terms
+        </span>
+
+    </div>
+
+    <div class="example">
+
+        −2y + 3y
+
+        <br>
+
+        <span class="like">
+            ✅ Like Terms
+        </span>
+
+    </div>
+
+</div>
+
+
+
+<!-- STEP 4 -->
+
+<div class="card step">
+
+    <div class="number">
+        4
+    </div>
+
+    <h3>
+        Group Formation
+    </h3>
+
+    <p>
+        ကျောင်းသားများကို အုပ်စုငယ်များ
+        ဖွဲ့ပေးပါ။
+    </p>
+
+    <p>
+        အုပ်စုတစ်ခုစီအား Bingo Card
+        တစ်ခုစီ ပေးပါ။
+    </p>
+
+</div>
+
+
+
+<!-- STEP 5 -->
+
+<div class="card step">
+
+    <div class="number">
+        5
+    </div>
+
+    <h3>
+        Bingo Game
+    </h3>
+
+    <p>
+        ဆရာ/ဆရာမက မေးခွန်းများကို
+        တစ်ခုချင်းစီ ဖတ်ပြပါ။
+    </p>
+
+    <p>
+        ကျောင်းသားများက အဖြေကို
+        စဉ်းစားပြီး Bingo Card ပေါ်ရှိ
+        သက်ဆိုင်ရာ term ကို ရွေးချယ်ပါ။
+    </p>
+
+</div>
+
+
+
+<!-- STEP 6 -->
+
+<div class="card step">
+
+    <div class="number">
+        6
+    </div>
+
+    <h3>
+        Discussion
+    </h3>
+
+    <p>
+        အဖြေမှန်/မှားကို အုပ်စုလိုက်
+        ဆွေးနွေးစေပါ။
+    </p>
+
+    <p>
+        “ဘာကြောင့် Like Terms ဖြစ်တာလဲ?”
+        “ဘာကြောင့် Unlike Terms ဖြစ်တာလဲ?”
+        ဟု ရှင်းပြစေပါ။
+    </p>
+
+</div>
+
+
+
+<!-- STEP 7 -->
+
+<div class="card step">
+
+    <div class="number">
+        7
+    </div>
+
+    <h3>
+        Reflection
+    </h3>
+
+    <p>
+        ကျောင်းသားများအား မိမိတို့
+        သင်ယူခဲ့သည်များကို ပြန်လည်
+        စဉ်းစားစေပါ။
+    </p>
+
+</div>
+
+
+
+<!-- STEP 8 -->
+
+<div class="card step">
+
+    <div class="number">
+        8
+    </div>
+
+    <h3>
+        Assessment
+    </h3>
+
+    <p>
+        Bingo Game performance နှင့်
+        Assessment မေးခွန်းများကို အသုံးပြုပြီး
+        ကျောင်းသားများ၏ သင်ယူမှုကို
+        စစ်ဆေးပါ။
+    </p>
+
+</div>
+
+
+</div>
+
+
+<div class="tip">
+
+    💡 <b>Key Rule:</b>
+
+    Like Terms ဖြစ်ရန်
+    variable များနှင့်
+    exponent များ တူရမည်။
+
+    Coefficients မတူနိုင်ပါသည်။
+
+    <br><br>
+
+    ဥပမာ -
+
+    <b>
+        3x နှင့် 7x
+    </b>
+
+    သည် Like Terms ဖြစ်သည်။
+
+</div>
+
+
+</section>
+
+
+
+<!-- ===================================
+     BINGO GAME
+==================================== -->
+
+<section
+    id="bingo"
+    class="section"
+>
+
+
+<h2>
+    🎲 Like Terms & Unlike Terms Bingo
+</h2>
+
+
+<p>
+
+    <b>ကစားနည်း</b> -
+
+    “Draw Question” ကိုနှိပ်ပါ။
+
+    မေးခွန်းကိုဖတ်ပြီး
+
+    Bingo Card ထဲက သက်ဆိုင်ရာ
+    အဖြေကို နှိပ်ပါ။
+
+</p>
+
+
+
+<div class="bingo-layout">
+
+
+<div>
+
+
+<!-- QUESTION -->
+
+<div
+    id="bingoQuestion"
+    class="question"
+>
+
+    🎯
+
+    Ready?
+
+    <br>
+
+    “Draw Question”
+    ကိုနှိပ်ပြီး စတင်ပါ။
+
+</div>
+
+
+
+<!-- BUTTONS -->
+
+<div class="controls">
+
+
+<button
+    class="action"
+    onclick="drawQuestion()"
+>
+
+    🎲 Draw Question
+
+</button>
+
+
+<button
+    class="action dark"
+    onclick="newCard()"
+>
+
+    🔄 New Card
+
+</button>
+
+
+<button
+    class="action dark"
+    onclick="resetBingo()"
+>
+
+    ↩ Reset
+
+</button>
+
+
+</div>
+
+
+
+<!-- BINGO BOARD -->
+
+<div
+    id="bingoBoard"
+    class="bingo-board"
+>
+</div>
+
+
+</div>
+
+
+
+<!-- GAME INFORMATION -->
+
+<div class="info">
+
+
+<h3>
+    🏆 Game Progress
+</h3>
+
+
+<p>
+
+    Marked Cells:
+
+    <b id="markedCount">
+        1
+    </b>
+
+    /25
+
+</p>
+
+
+<div class="progress">
+
+    <div
+        id="progressBar"
+        class="progress-bar"
+    >
+    </div>
+
+</div>
+
+
+<p id="winMessage">
+
+    Bingo ရရန်
+    တစ်တန်းပြည့်အောင်
+    ဖြည့်ပါ။
+
+</p>
+
+
+<hr>
+
+
+<h3>
+    👩‍🏫 Teacher's Guide
+</h3>
+
+
+<ul>
+
+    <li>
+        အုပ်စု 4–5 ယောက်စီ ဖွဲ့ပါ။
+    </li>
+
+    <li>
+        မေးခွန်းတစ်ခုချင်းစီ
+        ဖတ်ပြပါ။
+    </li>
+
+    <li>
+        အဖြေမှန်သော cell ကို
+        mark လုပ်ပါ။
+    </li>
+
+    <li>
+        အဖြေကို ဘာကြောင့်
+        Like/Unlike ဖြစ်သည်ကို
+        ပြန်ရှင်းပြစေပါ။
+    </li>
+
+    <li>
+        တစ်တန်း၊ တစ်ကော်လံ သို့မဟုတ်
+        diagonal ပြည့်လျှင်
+        Bingo ဖြစ်သည်။
+    </li>
+
+</ul>
+
+
+</div>
+
+
+</div>
+
+
+</section>
+
+
+
+<!-- ===================================
+     ASSESSMENT
+==================================== -->
+
+<section
+    id="assessment"
+    class="section"
+>
+
+
+<h2>
+    📝 Assessment
+</h2>
+
+
+<p>
+
+    အောက်ပါမေးခွန်းများကို
+    ဖြေဆိုပြီး
+
+    <b>
+        Check Answers
+    </b>
+
+    ကိုနှိပ်ပါ။
+
+</p>
+
+
+
+<div class="quiz">
+
+
+<!-- QUESTION 1 -->
+
+<div class="question-box">
+
+    <b>
+        1. 3x နှင့် 7x သည် —
+    </b>
+
+    <label>
+
+        <input
+            type="radio"
+            name="q1"
+            value="a"
+        >
+
+        Like Terms
+
+    </label>
+
+
+    <label>
+
+        <input
+            type="radio"
+            name="q1"
+            value="b"
+        >
+
+        Unlike Terms
+
+    </label>
+
+</div>
+
+
+
+<!-- QUESTION 2 -->
+
+<div class="question-box">
+
+    <b>
+        2. 5a နှင့် 2b သည် —
+    </b>
+
+    <label>
+
+        <input
+            type="radio"
+            name="q2"
+            value="a"
+        >
+
+        Like Terms
+
+    </label>
+
+
+    <label>
+
+        <input
+            type="radio"
+            name="q2"
+            value="b"
+        >
+
+        Unlike Terms
+
+    </label>
+
+</div>
+
+
+
+<!-- QUESTION 3 -->
+
+<div class="question-box">
+
+    <b>
+        3. 4x² နှင့် −9x² သည် —
+    </b>
+
+    <label>
+
+        <input
+            type="radio"
+            name="q3"
+            value="a"
+        >
+
+        Like Terms
+
+    </label>
+
+
+    <label>
+
+        <input
+            type="radio"
+            name="q3"
+            value="b"
+        >
+
+        Unlike Terms
+
+    </label>
+
+</div>
+
+
+
+<!-- QUESTION 4 -->
+
+<div class="question-box">
+
+    <b>
+        4. 6xy နှင့် 2x သည် —
+    </b>
+
+    <label>
+
+        <input
+            type="radio"
+            name="q4"
+            value="a"
+        >
+
+        Like Terms
+
+    </label>
+
+
+    <label>
+
+        <input
+            type="radio"
+            name="q4"
+            value="b"
+        >
+
+        Unlike Terms
+
+    </label>
+
+</div>
+
+
+
+<!-- QUESTION 5 -->
+
+<div class="question-box">
+
+    <b>
+        5. −2y + 3y = ?
+    </b>
+
+    <label>
+
+        <input
+            type="radio"
+            name="q5"
+            value="a"
+        >
+
+        y
+
+    </label>
+
+
+    <label>
+
+        <input
+            type="radio"
+            name="q5"
+            value="b"
+        >
+
+        5y
+
+    </label>
+
+
+    <label>
+
+        <input
+            type="radio"
+            name="q5"
+            value="c"
+        >
+
+        −5y
+
+    </label>
+
+</div>
+
+
+
+<!-- QUESTION 6 -->
+
+<div class="question-box">
+
+    <b>
+        6. 7a + 2b ကို
+        single term တစ်ခုအဖြစ်
+        ပေါင်းနိုင်သလား?
+    </b>
+
+    <label>
+
+        <input
+            type="radio"
+            name="q6"
+            value="a"
+        >
+
+        Yes
+
+    </label>
+
+
+    <label>
+
+        <input
+            type="radio"
+            name="q6"
+            value="b"
+        >
+
+        No
+
+    </label>
+
+</div>
+
+
+</div>
+
+
+
+<!-- ASSESSMENT BUTTONS -->
+
+<div class="controls">
+
+
+<button
+    class="action"
+    onclick="checkAssessment()"
+>
+
+    ✅ Check Answers
+
+</button>
+
+
+<button
+    class="action dark"
+    onclick="resetAssessment()"
+>
+
+    🔄 Try Again
+
+</button>
+
+
+</div>
+
+
+
+<!-- RESULT -->
+
+<div
+    id="assessmentResult"
+    class="result"
+>
+</div>
+
+
+</section>
+
+
+
+<footer>
+
+    🌟 Like Terms • Unlike Terms • Bingo • Assessment 🌟
+
+</footer>
+
+
+</div>
+
+
+
+<script>
+
+
+/* =========================================
+   SECTION NAVIGATION
+========================================= */
+
+function openSection(id,button){
+
+    document
+        .querySelectorAll(".section")
+        .forEach(function(section){
+
+            section.classList.remove("active");
+
+        });
+
+
+    document
+        .querySelectorAll(".tab")
+        .forEach(function(tab){
+
+            tab.classList.remove("active");
+
+        });
+
+
+    document
+        .getElementById(id)
+        .classList.add("active");
+
+
+    button.classList.add("active");
+
+
+    window.scrollTo({
+
+        top:0,
+
+        behavior:"smooth"
+
+    });
+
+}
+
+
+
+/* =========================================
+   BINGO QUESTIONS
+========================================= */
+
+const bingoQuestions = [
+
+    {
+        question:"3x နှင့် 8x သည် Like Terms လား?",
+        answer:"LIKE"
+    },
+
+    {
+        question:"5a နှင့် 2b သည် Like Terms လား?",
+        answer:"UNLIKE"
+    },
+
+    {
+        question:"4x² နှင့် −7x² သည် Like Terms လား?",
+        answer:"LIKE"
+    },
+
+    {
+        question:"6xy နှင့် 3xy သည် Like Terms လား?",
+        answer:"LIKE"
+    },
+
+    {
+        question:"2m နှင့် 2m² သည် Like Terms လား?",
+        answer:"UNLIKE"
+    },
+
+    {
+        question:"9p နှင့် −p သည် Like Terms လား?",
+        answer:"LIKE"
+    },
+
+    {
+        question:"7ab နှင့် 7a သည် Like Terms လား?",
+        answer:"UNLIKE"
+    },
+
+    {
+        question:"−3y + 5y = ?",
+        answer:"2y"
+    },
+
+    {
+        question:"8x − 3x = ?",
+        answer:"5x"
+    },
+
+    {
+        question:"4a + 6a = ?",
+        answer:"10a"
+    },
+
+    {
+        question:"−2y + 3y = ?",
+        answer:"y"
+    },
+
+    {
+        question:"x² နှင့် 5x² သည် Like Terms လား?",
+        answer:"LIKE"
+    },
+
+    {
+        question:"3xy နှင့် 3yx သည် Like Terms လား?",
+        answer:"LIKE"
+    },
+
+    {
+        question:"4p² နှင့် 4p သည် Like Terms လား?",
+        answer:"UNLIKE"
+    },
+
+    {
+        question:"2b + 5c သည် Like Terms လား?",
+        answer:"UNLIKE"
+    }
+
+];
+
+
+
+/* =========================================
+   BINGO CARD VALUES
+========================================= */
+
+const bingoValues = [
+
+    "LIKE",
+    "UNLIKE",
+    "x",
+    "y",
+    "a",
+    "b",
+    "x²",
+    "y²",
+    "xy",
+    "ab",
+    "3x",
+    "5x",
+    "2y",
+    "10a",
+    "7a",
+    "4b",
+    "6xy",
+    "2ab",
+    "−3y",
+    "9p",
+    "m",
+    "m²",
+    "p²",
+    "3xy"
+
+];
+
+
+
+let currentQuestion = null;
+
+
+
+/* =========================================
+   SHUFFLE
+========================================= */
+
+function shuffle(array){
+
+    return array.sort(function(){
+
+        return Math.random() - 0.5;
+
+    });
+
+}
+
+
+
+/* =========================================
+   CREATE BINGO CARD
+========================================= */
+
+function newCard(){
+
+    const board =
+        document.getElementById("bingoBoard");
+
+
+    board.innerHTML="";
+
+
+    let values =
+        shuffle([...bingoValues]);
+
+
+    let index=0;
+
+
+    for(let row=0;row<5;row++){
+
+        for(let col=0;col<5;col++){
+
+
+            const cell =
+                document.createElement("button");
+
+
+            cell.className="bingo-cell";
+
+
+            /* FREE CENTER */
+
+            if(row===2 && col===2){
+
+                cell.textContent="FREE";
+
+                cell.classList.add("free");
+
+                cell.classList.add("marked");
+
+            }
+
+            else{
+
+                cell.textContent=values[index];
+
+                index++;
+
+
+                cell.onclick=function(){
+
+                    markCell(cell);
+
+                };
+
+            }
+
+
+            board.appendChild(cell);
+
+        }
+
+    }
+
+
+    updateProgress();
+
+
+    document.getElementById("winMessage").textContent =
+        "Bingo ရရန် တစ်တန်းပြည့်အောင် ဖြည့်ပါ။";
+
+}
+
+
+
+/* =========================================
+   DRAW RANDOM QUESTION
+========================================= */
+
+function drawQuestion(){
+
+    currentQuestion =
+        bingoQuestions[
+            Math.floor(
+                Math.random() *
+                bingoQuestions.length
+            )
+        ];
+
+
+    document.getElementById("bingoQuestion")
+        .innerHTML =
+
+        "🎯 " +
+        currentQuestion.question +
+
+        "<br><small>" +
+
+        "အဖြေကို Bingo Card ထဲတွင် ရှာပါ။" +
+
+        "</small>";
+
+}
+
+
+
+/* =========================================
+   MARK BINGO CELL
+========================================= */
+
+function markCell(cell){
+
+    cell.classList.toggle("marked");
+
+
+    updateProgress();
+
+
+    if(checkBingo()){
+
+        document.getElementById("winMessage")
+            .innerHTML =
+            "🎉 <b>BINGO!</b> အုပ်စုအနိုင်ရပါပြီ!";
+
+    }
+
+}
+
+
+
+/* =========================================
+   UPDATE PROGRESS
+========================================= */
+
+function updateProgress(){
+
+    const cells =
+        document.querySelectorAll(
+            ".bingo-cell.marked"
+        );
+
+
+    const count=cells.length;
+
+
+    document.getElementById("markedCount")
+        .textContent=count;
+
+
+    document.getElementById("progressBar")
+        .style.width =
+        ((count/25)*100)+"%";
+
+}
+
+
+
+/* =========================================
+   CHECK BINGO
+========================================= */
+
+function checkBingo(){
+
+    const cells =
+        [
+            ...document.querySelectorAll(
+                ".bingo-cell"
+            )
+        ];
+
+
+    function marked(row,col){
+
+        return cells[
+            row*5+col
+        ].classList.contains("marked");
+
+    }
+
+
+    /* ROWS */
+
+    for(let row=0;row<5;row++){
+
+        let complete=true;
+
+
+        for(let col=0;col<5;col++){
+
+            if(!marked(row,col)){
+
+                complete=false;
+
+            }
+
+        }
+
+
+        if(complete){
+
+            return true;
+
+        }
+
+    }
+
+
+
+    /* COLUMNS */
+
+    for(let col=0;col<5;col++){
+
+        let complete=true;
+
+
+        for(let row=0;row<5;row++){
+
+            if(!marked(row,col)){
+
+                complete=false;
+
+            }
+
+        }
+
+
+        if(complete){
+
+            return true;
+
+        }
+
+    }
+
+
+
+    /* DIAGONAL 1 */
+
+    let diagonal1=true;
+
+
+    for(let i=0;i<5;i++){
+
+        if(!marked(i,i)){
+
+            diagonal1=false;
+
+        }
+
+    }
+
+
+    if(diagonal1){
+
+        return true;
+
+    }
+
+
+
+    /* DIAGONAL 2 */
+
+    let diagonal2=true;
+
+
+    for(let i=0;i<5;i++){
+
+        if(!marked(i,4-i)){
+
+            diagonal2=false;
+
+        }
+
+    }
+
+
+    if(diagonal2){
+
+        return true;
+
+    }
+
+
+    return false;
+
+}
+
+
+
+/* =========================================
+   RESET BINGO
+========================================= */
+
+function resetBingo(){
+
+    const cells =
+        document.querySelectorAll(
+            ".bingo-cell"
+        );
+
+
+    cells.forEach(function(cell,index){
+
+        cell.classList.remove("marked");
+
+
+        if(index===12){
+
+            cell.classList.add("marked");
+
+        }
+
+    });
+
+
+    updateProgress();
+
+
+    document.getElementById("winMessage")
+        .textContent =
+        "Bingo ရရန် တစ်တန်းပြည့်အောင် ဖြည့်ပါ။";
+
+}
+
+
+
+/* =========================================
+   ASSESSMENT
+========================================= */
+
+function checkAssessment(){
+
+
+    const correctAnswers={
+
+        q1:"a",
+
+        q2:"b",
+
+        q3:"a",
+
+        q4:"b",
+
+        q5:"a",
+
+        q6:"b"
+
+    };
+
+
+    let score=0;
+
+
+    const total=6;
+
+
+    for(let question in correctAnswers){
+
+
+        const selected =
+            document.querySelector(
+                'input[name="'+question+'"]:checked'
+            );
+
+
+        if(
+
+            selected &&
+            selected.value ===
+            correctAnswers[question]
+
+        ){
+
+            score++;
+
+        }
+
+    }
+
+
+    const percentage =
+        Math.round(
+            (score/total)*100
+        );
+
+
+    let message="";
+
+
+    if(percentage>=80){
+
+        message =
+            "🌟 Excellent! အရမ်းကောင်းပါတယ်။";
+
+    }
+
+    else if(percentage>=60){
+
+        message =
+            "👏 Good! နောက်ထပ်လေ့ကျင့်ပါ။";
+
+    }
+
+    else{
+
+        message =
+            "💪 Keep Learning! Like Terms နှင့် Unlike Terms ကို ထပ်မံလေ့ကျင့်ပါ။";
+
+    }
+
+
+    const result =
+        document.getElementById(
+            "assessmentResult"
+        );
+
+
+    result.style.display="block";
+
+
+    result.innerHTML =
+
+        "🎯 Your Score<br><br>" +
+
+        "<strong>" +
+
+        score +
+
+        " / " +
+
+        total +
+
+        "</strong>" +
+
+        "<br><br>" +
+
+        percentage +
+
+        "%<br><br>" +
+
+        message;
+
+
+    result.scrollIntoView({
+
+        behavior:"smooth",
+
+        block:"center"
+
+    });
+
+}
+
+
+
+/* =========================================
+   RESET ASSESSMENT
+========================================= */
+
+function resetAssessment(){
+
+    document
+        .querySelectorAll(
+            '#assessment input[type="radio"]'
+        )
+        .forEach(function(input){
+
+            input.checked=false;
+
+        });
+
+
+    const result =
+        document.getElementById(
+            "assessmentResult"
+        );
+
+
+    result.style.display="none";
+
+}
+
+
+
+/* =========================================
+   START BINGO
+========================================= */
+
+newCard();
+
+
+</script>
+
+
+</body>
+</html>
